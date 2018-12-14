@@ -2,6 +2,8 @@
   <dictionary name="jndev">
     <words>
       <w>mqtt</w>
+      <w>navbar</w>
+      <w>plotly</w>
       <w>socketio</w>
     </words>
   </dictionary>

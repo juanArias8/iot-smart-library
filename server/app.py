@@ -1,13 +1,17 @@
-"""
-A small Test application to show how to use Flask-MQTT.
-"""
+__copyright__ = 'Copyright 2018, Juan David Arias'
+__email__ = 'ariasg.juandavid@gmail.com'
+__maintainer__ = 'Juan David Arias'
+__author__ = 'Juan David Arias'
+__status__ = 'developer'
+__version__ = '1.0.1'
+__license__ = 'GPL'
 
 import eventlet
 import json
 from flask import Flask, render_template
+from flask_bootstrap import Bootstrap
 from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
-from flask_bootstrap import Bootstrap
 
 eventlet.monkey_patch()
 
@@ -21,15 +25,7 @@ app.config['MQTT_USERNAME'] = ''
 app.config['MQTT_PASSWORD'] = ''
 app.config['MQTT_KEEPALIVE'] = 5
 app.config['MQTT_TLS_ENABLED'] = False
-app.config['MQTT_LAST_WILL_TOPIC'] = 'home/lastwill'
-app.config['MQTT_LAST_WILL_MESSAGE'] = 'bye'
 app.config['MQTT_LAST_WILL_QOS'] = 2
-
-# Parameters for SSL enabled
-# app.config['MQTT_BROKER_PORT'] = 8883
-# app.config['MQTT_TLS_ENABLED'] = True
-# app.config['MQTT_TLS_INSECURE'] = True
-# app.config['MQTT_TLS_CA_CERTS'] = 'ca.crt'
 
 mqtt = Mqtt(app)
 socketio = SocketIO(app)
@@ -64,9 +60,8 @@ def handle_mqtt_message(client, userdata, message):
 
 
 @mqtt.on_log()
-def handle_logging(client, userdata, level, buf):
-    # print(level, buf)
-    pass
+def handle_logging(client, userdata, level, buffer):
+    print('LOG: ' + buffer)
 
 
 if __name__ == '__main__':
